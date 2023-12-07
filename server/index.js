@@ -11,13 +11,13 @@ const pool = new Pool({
   port: 5432,
 });
 
-app.post('/assistant', async (req, res) => {
-  const { id, name, email } = req.body;
+app.post('/users', async (req, res) => {
+  const { uid, name, username, phone, email, role} = req.body;
 
-  console.log(`Received message from front-end: id=${id}, name=${name}, email=${email}`);
+  console.log(`Received message from front-end: uid=${uid}, name=${name}, username=${username}, phone=${phone}, email=${email}, role=${role}`);
 
   try {
-    const result = await pool.query('INSERT INTO assistants (id, name, email) VALUES ($1, $2, $3) RETURNING *;', [id, name, email]);
+    const result = await pool.query('INSERT INTO users (uid, name, username, phone, email, role) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *;', [uid, name, username, phone, email, role]);
     res.json(result.rows[0]);
   } catch (err) {
     console.error(err);
