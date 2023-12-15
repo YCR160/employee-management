@@ -8,7 +8,7 @@ const time = ref('');
 const location = ref('');
 
 const submitForm = async () => {
-  const response = await fetch('/overtime', {
+  const response = await fetch('/api/overtime', {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',

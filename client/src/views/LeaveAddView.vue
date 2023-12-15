@@ -8,7 +8,7 @@ const time = ref('');
 const location = ref('');
 
 const submitForm = async () => {
-  const response = await fetch('/leave', {
+  const response = await fetch('/api/leave', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

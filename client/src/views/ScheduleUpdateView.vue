@@ -7,7 +7,7 @@ const time = ref('');
 const location = ref('');
 
 const submitForm = async () => {
-  const response = await fetch('/schedule', {
+  const response = await fetch('/api/schedule', {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
