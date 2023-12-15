@@ -19,6 +19,8 @@ docker run -d \
 	postgres:16-bookworm
 ```
 
+建立数据库，运行 `server/sql/init.sql` 中的 SQL 语句
+
 在 `client` 目录下执行
 
 ```bash
