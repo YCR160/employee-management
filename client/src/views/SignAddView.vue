@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-const uid = ref('');
 const name = ref('');
-const time = ref('');
+const username = ref('');
 const location = ref('');
 
 const submitForm = async () => {
@@ -13,9 +12,8 @@ const submitForm = async () => {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            uid: uid.value,
             name: name.value,
-            time: time.value,
+            username: username.value,
             location: location.value
         })
     });
@@ -31,9 +29,21 @@ const submitForm = async () => {
 
 <template>
     <div class="employee">
-        <h1>签到查询处</h1>
+        <h1>签到处</h1>
         <form @submit.prevent="submitForm">
-            <button type="submit">查询已签到名单</button>
+            <div>
+                <label>姓名：</label>
+                <input v-model="name" type="text" />
+            </div>
+            <div>
+                <label>学号：</label>
+                <input v-model="username" type="text" />
+            </div>
+            <div>
+                <label>地点：</label>
+                <input v-model="location" type="text" />
+            </div>
+            <button type="submit">签到</button>
         </form>
     </div>
 </template>

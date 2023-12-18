@@ -27,7 +27,7 @@ const submitForm = async () => {
     <div class="employee">
         <h1>工作安排查询</h1>
         <form @submit.prevent="submitForm">
-            <button type="submit">获取工作安排表</button>
+            <button type="submit">获取安排表</button>
         </form>
     </div>
 </template>

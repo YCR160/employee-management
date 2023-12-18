@@ -1,22 +1,25 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-const uid = ref('');
+const id = ref('');
 const name = ref('');
-const time = ref('');
+const start_time = ref('');
+const end_time = ref('');
 const location = ref('');
+const valid_status = ref('');
 
 const submitForm = async () => {
-    const response = await fetch(`/api/schedule`, {
+    const response = await fetch(`/api/schedule/${id.value}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            uid: uid.value,
             name: name.value,
-            time: time.value,
-            location: location.value
+            start_time: start_time.value,
+            end_time: end_time.value,
+            location: location.value,
+            valid_status: valid_status.value
         })
     });
 
@@ -31,25 +34,34 @@ const submitForm = async () => {
 
 <template>
     <div class="employee">
-        <h1>工作安排更新处理</h1>
+        <h1>更新工作安排</h1>
+        <p>根据工作安排 ID 更新工作安排信息。</p>
         <form @submit.prevent="submitForm">
             <div>
-                <label>用户编号：</label>
-                <input v-model="uid" type="text" />
+                <label>工作安排 ID：</label>
+                <input v-model="id" type="text" />
             </div>
             <div>
                 <label>姓名：</label>
                 <input v-model="name" type="text" />
             </div>
             <div>
-                <label>时间：</label>
-                <input v-model="time" type="text" />
+                <label>开始时间：</label>
+                <input v-model="start_time" type="text" />
             </div>
             <div>
-                <label>地点：</label>
+                <label>结束时间：</label>
+                <input v-model="end_time" type="text" />
+            </div>
+            <div>
+                <label>教室：</label>
                 <input v-model="location" type="text" />
             </div>
-            <button type="submit">工作更新</button>
+            <div>
+                <label>有效状态：</label>
+                <input v-model="valid_status" type="text" />
+            </div>
+            <button type="submit">更新工作安排</button>
         </form>
     </div>
 </template>

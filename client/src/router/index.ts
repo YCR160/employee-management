@@ -58,34 +58,19 @@ const router = createRouter({
             component: () => import('../views/SignAddView.vue')
         },
         {
-            path: '/leave',
-            name: 'leave',
-            component: () => import('../views/LeaveView.vue')
+            path: '/alter',
+            name: 'alter',
+            component: () => import('../views/AlterView.vue')
         },
         {
-            path: '/leaveadd',
-            name: 'leaveadd',
-            component: () => import('../views/LeaveAddView.vue')
+            path: '/alteradd',
+            name: 'alteradd',
+            component: () => import('../views/AlterAddView.vue')
         },
         {
-            path: '/leaveupdate',
-            name: 'leaveupdate',
-            component: () => import('../views/LeaveUpdateView.vue')
-        },
-        {
-            path: '/overtime',
-            name: 'overtime',
-            component: () => import('../views/OvertimeView.vue')
-        },
-        {
-            path: '/overtimeadd',
-            name: 'overtimeadd',
-            component: () => import('../views/OvertimeAddView.vue')
-        },
-        {
-            path: '/overtimeupdate',
-            name: 'overtimeupdate',
-            component: () => import('../views/OvertimeUpdateView.vue')
+            path: '/alterupdate',
+            name: 'alterupdate',
+            component: () => import('../views/AlterUpdateView.vue')
         }
     ]
 });

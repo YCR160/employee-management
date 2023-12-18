@@ -35,8 +35,13 @@ const submitForm = async () => {
 
 <template>
     <div class="employee">
-        <h1>添加用户</h1>
+        <h1>更新用户信息</h1>
+        <p>根据用户 ID 更新用户信息。</p>
         <form @submit.prevent="submitForm">
+            <div>
+                <label>用户 ID：</label>
+                <input v-model="uid" type="text" />
+            </div>
             <div>
                 <label>姓名：</label>
                 <input v-model="name" type="text" />

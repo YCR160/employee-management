@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-const uid = ref('');
 const name = ref('');
-const time = ref('');
+const start_time = ref('');
+const end_time = ref('');
 const location = ref('');
 
 const submitForm = async () => {
@@ -13,9 +13,9 @@ const submitForm = async () => {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            uid: uid.value,
             name: name.value,
-            time: time.value,
+            start_time: start_time.value,
+            end_time: end_time.value,
             location: location.value
         })
     });
@@ -31,25 +31,25 @@ const submitForm = async () => {
 
 <template>
     <div class="employee">
-        <h1>工作安排添加处理</h1>
+        <h1>添加工作安排</h1>
         <form @submit.prevent="submitForm">
-            <div>
-                <label>用户编号：</label>
-                <input v-model="uid" type="text" />
-            </div>
             <div>
                 <label>姓名：</label>
                 <input v-model="name" type="text" />
             </div>
             <div>
-                <label>时间：</label>
-                <input v-model="time" type="text" />
+                <label>开始时间：</label>
+                <input v-model="start_time" type="text" />
             </div>
             <div>
-                <label>地点：</label>
+                <label>结束时间：</label>
+                <input v-model="end_time" type="text" />
+            </div>
+            <div>
+                <label>教室：</label>
                 <input v-model="location" type="text" />
             </div>
-            <button type="submit">工作添加</button>
+            <button type="submit">添加工作安排</button>
         </form>
     </div>
 </template>

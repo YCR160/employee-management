@@ -1,15 +1,23 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-const uid = ref('');
 const name = ref('');
 const username = ref('');
 const phone = ref('');
 const email = ref('');
 const role = ref('');
 
+const generateQueryParams = () => {
+    const params = { name: name.value, username: username.value, phone: phone.value, email: email.value, role: role.value };
+    return Object.entries(params)
+        .filter(([_, value]) => value !== '')
+        .map(([key, value]) => `${key}=${value}`)
+        .join('&');
+};
+
 const submitForm = async () => {
-    const response = await fetch(`/api/users/`, {
+    const queryParams = generateQueryParams();
+    const response = await fetch(`/api/users/?${queryParams}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -27,7 +35,8 @@ const submitForm = async () => {
 
 <template>
     <div class="employee">
-        <h1>添加用户</h1>
+        <h1>用户查询</h1>
+        <p>返回第一条符合所有查询条件的数据。</p>
         <form @submit.prevent="submitForm">
             <div>
                 <label>姓名：</label>

@@ -13,6 +13,15 @@ import { RouterLink, RouterView } from 'vue-router';
             <nav>
                 <RouterLink to="/">Home</RouterLink>
                 <RouterLink to="/about">About</RouterLink>
+                <RouterLink to="/user">User</RouterLink>
+                <RouterLink to="/useradd">UserAdd</RouterLink>
+                <RouterLink to="/userupdate">UserUpdate</RouterLink>
+                <RouterLink to="/schedule">Schedule</RouterLink>
+                <RouterLink to="/scheduleadd">ScheduleAdd</RouterLink>
+                <RouterLink to="/scheduleupdate">ScheduleUpdate</RouterLink>
+                <RouterLink to="/sign">Sign</RouterLink>
+                <RouterLink to="/signadd">SignAdd</RouterLink>
+                <RouterLink to="/alter">Alter</RouterLink>
             </nav>
         </div>
     </header>

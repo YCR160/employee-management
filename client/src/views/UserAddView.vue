@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-const uid = ref('');
 const name = ref('');
 const username = ref('');
 const phone = ref('');
@@ -15,7 +14,6 @@ const submitForm = async () => {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            uid: uid.value,
             name: name.value,
             username: username.value,
             phone: phone.value,
@@ -37,10 +35,6 @@ const submitForm = async () => {
     <div class="employee">
         <h1>添加用户</h1>
         <form @submit.prevent="submitForm">
-            <div>
-                <label>编号：</label>
-                <input v-model="uid" type="text" />
-            </div>
             <div>
                 <label>姓名：</label>
                 <input v-model="name" type="text" />
