@@ -7,7 +7,7 @@ const time = ref('');
 const location = ref('');
 
 const submitForm = async () => {
-    const response = await fetch('/api/sign', {
+    const response = await fetch(`/api/sign`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

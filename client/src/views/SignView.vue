@@ -7,17 +7,11 @@ const time = ref('');
 const location = ref('');
 
 const submitForm = async () => {
-    const response = await fetch('/api/sign', {
+    const response = await fetch(`/api/sign`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            uid: uid.value,
-            name: name.value,
-            time: time.value,
-            location: location.value
-        })
+        }
     });
 
     if (response.ok) {

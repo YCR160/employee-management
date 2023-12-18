@@ -9,7 +9,7 @@ const email = ref('');
 const role = ref('');
 
 const submitForm = async () => {
-    const response = await fetch('/api/users', {
+    const response = await fetch(`/api/users/${uid.value}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'

@@ -13,15 +13,7 @@ const submitForm = async () => {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            uid: uid.value,
-            name: name.value,
-            username: username.value,
-            phone: phone.value,
-            email: email.value,
-            role: role.value,
-        }),
+        }
     });
 
     if (response.ok) {
