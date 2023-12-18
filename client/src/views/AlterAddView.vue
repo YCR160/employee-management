@@ -6,11 +6,10 @@ const name = ref('');
 const reviewer = ref('');
 const time = ref('');
 const location = ref('');
-const state = ref('');
 
 const submitForm = async () => {
-    const response = await fetch('/api/leave', {
-        method: 'GET',
+    const response = await fetch(`/api/alter`, {
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
@@ -19,8 +18,7 @@ const submitForm = async () => {
             name: name.value,
             reviewer: reviewer.value,
             time: time.value,
-            location: location.value,
-            state: state.value
+            location: location.value
         })
     });
 
@@ -35,9 +33,25 @@ const submitForm = async () => {
 
 <template>
     <div class="employee">
-        <h1>请假表查询处</h1>
+        <h1>机动表添加处理</h1>
         <form @submit.prevent="submitForm">
-            <button type="submit">查询</button>
+            <div>
+                <label>人员姓名：</label>
+                <input v-model="name" type="text" />
+            </div>
+            <div>
+                <label>审核人员姓名：</label>
+                <input v-model="reviewer" type="text" />
+            </div>
+            <div>
+                <label>时间：</label>
+                <input v-model="time" type="text" />
+            </div>
+            <div>
+                <label>地点：</label>
+                <input v-model="location" type="text" />
+            </div>
+            <button type="submit">添加安排</button>
         </form>
     </div>
 </template>

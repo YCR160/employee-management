@@ -3,21 +3,17 @@ import { ref } from 'vue';
 
 const uid = ref('');
 const name = ref('');
+const reviewer = ref('');
 const time = ref('');
 const location = ref('');
+const state = ref('');
 
 const submitForm = async () => {
-    const response = await fetch('/api/overtime', {
+    const response = await fetch(`/api/alter`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            uid: uid.value,
-            name: name.value,
-            time: time.value,
-            location: location.value
-        })
+        }
     });
 
     if (response.ok) {
@@ -31,7 +27,7 @@ const submitForm = async () => {
 
 <template>
     <div class="employee">
-        <h1>加班表查询处</h1>
+        <h1>机动表查询处</h1>
         <form @submit.prevent="submitForm">
             <button type="submit">查询</button>
         </form>

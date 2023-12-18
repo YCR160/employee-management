@@ -9,7 +9,7 @@ const location = ref('');
 const state = ref('');
 
 const submitForm = async () => {
-    const response = await fetch('/api/leave', {
+    const response = await fetch(`/api/alter`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -35,10 +35,10 @@ const submitForm = async () => {
 
 <template>
     <div class="employee">
-        <h1>请假表更新处</h1>
+        <h1>机动表更新处</h1>
         <form @submit.prevent="submitForm">
             <div>
-                <label>请假人员姓名：</label>
+                <label>人员姓名：</label>
                 <input v-model="name" type="text" />
             </div>
             <div>
@@ -53,7 +53,7 @@ const submitForm = async () => {
                 <label>地点：</label>
                 <input v-model="location" type="text" />
             </div>
-            <button type="submit">更新请假安排</button>
+            <button type="submit">更新安排</button>
         </form>
     </div>
 </template>
