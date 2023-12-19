@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-const uid = ref('');
 const name = ref('');
-const reviewer = ref('');
-const time = ref('');
+const username = ref('');
+const start_time = ref('');
+const end_time = ref('');
 const location = ref('');
+const record_type = ref('');
 
 const submitForm = async () => {
     const response = await fetch(`/api/alter`, {
@@ -14,11 +15,12 @@ const submitForm = async () => {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            uid: uid.value,
             name: name.value,
-            reviewer: reviewer.value,
-            time: time.value,
-            location: location.value
+            username: username.value,
+            start_time: start_time.value,
+            end_time: end_time.value,
+            location: location.value,
+            record_type: record_type.value
         })
     });
 
@@ -33,23 +35,31 @@ const submitForm = async () => {
 
 <template>
     <div class="employee">
-        <h1>机动表添加处理</h1>
+        <h1>添加请假/加班记录</h1>
         <form @submit.prevent="submitForm">
             <div>
-                <label>人员姓名：</label>
+                <label>姓名：</label>
                 <input v-model="name" type="text" />
             </div>
             <div>
-                <label>审核人员姓名：</label>
-                <input v-model="reviewer" type="text" />
+                <label>学号：</label>
+                <input v-model="username" type="text" />
             </div>
             <div>
-                <label>时间：</label>
-                <input v-model="time" type="text" />
+                <label>开始时间：</label>
+                <input v-model="start_time" type="text" />
+            </div>
+            <div>
+                <label>结束时间：</label>
+                <input v-model="end_time" type="text" />
             </div>
             <div>
                 <label>地点：</label>
                 <input v-model="location" type="text" />
+            </div>
+            <div>
+                <label>记录类型：</label>
+                <input v-model="record_type" type="text" />
             </div>
             <button type="submit">添加安排</button>
         </form>

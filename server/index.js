@@ -214,40 +214,125 @@ app.post('/api/sign', async (req, res) => {
 });
 
 
-app.get('/api/alter/', async (req, res) => {
+app.get('/api/alter', async (req, res) => {
+    const { name, username, start_time, end_time, location } = req.query;
+
+    console.log(`Searching for alter with name=${name}, username=${username}, start_time=${start_time}, end_time=${end_time}, location=${location}`);
+
+    const uid_query = 'SELECT uid FROM users WHERE true';
+    const uid_params = [];
+
+    let query = 'SELECT * FROM alter WHERE true';
+    const params = [];
+
+    if (name) {
+        uid_query += ' AND name = $' + (uid_params.length + 1);
+        uid_params.push(name);
+    }
+
+    if (username) {
+        uid_query += ' AND username = $' + (uid_params.length + 1);
+        uid_params.push(username);
+    }
+
+    const userResult = await pool.query(uid_query, uid_params);
+    if (userResult.rows.length === 0) {
+        res.status(404).json({ error: 'User not found' });
+        return;
+    }
+    const uid = userResult.rows[0].uid;
+
+    if (uid) {
+        query += ' AND uid = $' + (params.length + 1);
+        params.push(uid);
+    }
+
+    if (start_time) {
+        query += ' AND start_time = $' + (params.length + 1);
+        params.push(start_time);
+    }
+
+    if (end_time) {
+        query += ' AND end_time = $' + (params.length + 1);
+        params.push(end_time);
+    }
+
+    if (location) {
+        query += ' AND location = $' + (params.length + 1);
+        params.push(location);
+    }
+
     try {
-        const result = await pool.query('SELECT * FROM alter;');
-        if (result.rows.length > 0) {
-            res.json(result.rows[0]);
-        } else {
-            res.status(404).json({ error: 'Alter not found' });
-        }
+        const data = await pool.query(query, params);
+        res.json(data);
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Internal server error' });
     }
 });
 
-app.post('/api/alter/', async (req, res) => {
-    const { uid, date, time, location, description } = req.body;
+app.post('/api/alter', async (req, res) => {
+    const { name, username, start_time, end_time, location, record_type } = req.body;
 
-    console.log(`Received message from front-end: uid=${uid}, date=${date}, time=${time}, location=${location}, description=${description}`);
+    console.log(`Adding alter with name=${name}, username=${username}, start_time=${start_time}, end_time=${end_time}, location=${location}, record_type=${record_type}`);
+
+    uid_query = 'SELECT uid FROM users WHERE true';
+    uid_params = [];
+
+    if (name) {
+        uid_query += ' AND name = $' + (uid_params.length + 1);
+        uid_params.push(name);
+    }
+
+    if (username) {
+        uid_query += ' AND username = $' + (uid_params.length + 1);
+        uid_params.push(username);
+    }
+
+    const userResult = await pool.query(uid_query, uid_params);
+    if (userResult.rows.length === 0) {
+        res.status(404).json({ error: 'User not found' });
+        return;
+    }
+    const uid = userResult.rows[0].uid;
 
     try {
-        const result = await pool.query('INSERT INTO alter (uid, date, time, location, description) VALUES ($1, $2, $3, $4, $5) RETURNING *;', [uid, date, time, location, description]);
-        res.json(result.rows[0]);
+        const alterResult = await pool.query('INSERT INTO alter (uid, start_time, end_time, location, application_time, valid_status, record_type) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *;', [uid, start_time, end_time, location, new Date(), false, record_type]);
+        res.json(alterResult.rows[0]);
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Internal server error' });
     }
 });
 
-app.put('/api/alter/:uid', async (req, res) => {
-    const { uid } = req.params;
-    const { date, time, location, description } = req.body;
+app.put('/api/alter/:id', async (req, res) => {
+    const { id } = req.params;
+    const { name, username, start_time, end_time, location, valid_status, record_type } = req.body;
+
+    console.log(`Updating alter with id=${id}, name=${name}, username=${username}, start_time=${start_time}, end_time=${end_time}, location=${location}, valid_status=${valid_status}, record_type=${record_type}`);
+
+    uid_query = 'SELECT uid FROM users WHERE true';
+    uid_params = [];
+
+    if (name) {
+        uid_query += ' AND name = $' + (uid_params.length + 1);
+        uid_params.push(name);
+    }
+
+    if (username) {
+        uid_query += ' AND username = $' + (uid_params.length + 1);
+        uid_params.push(username);
+    }
+
+    const userResult = await pool.query(uid_query, uid_params);
+    if (userResult.rows.length === 0) {
+        res.status(404).json({ error: 'User not found' });
+        return;
+    }
+    const uid = userResult.rows[0].uid;
 
     try {
-        const result = await pool.query('UPDATE alter SET date = $1, time = $2, location = $3, description = $4 WHERE uid = $5 RETURNING *;', [date, time, location, description, uid]);
+        const result = await pool.query('UPDATE alter SET uid = $1, start_time = $2, end_time = $3, location = $4, valid_status = $5, record_type = $6 WHERE id = $7 RETURNING *;', [uid, start_time, end_time, location, valid_status, record_type, id]);
         if (result.rows.length > 0) {
             res.json(result.rows[0]);
         } else {

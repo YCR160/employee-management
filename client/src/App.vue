@@ -22,6 +22,8 @@ import { RouterLink, RouterView } from 'vue-router';
                 <RouterLink to="/sign">Sign</RouterLink>
                 <RouterLink to="/signadd">SignAdd</RouterLink>
                 <RouterLink to="/alter">Alter</RouterLink>
+                <RouterLink to="/alteradd">AlterAdd</RouterLink>
+                <RouterLink to="/alterupdate">AlterUpdate</RouterLink>
             </nav>
         </div>
     </header>
