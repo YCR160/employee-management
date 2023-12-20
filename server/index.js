@@ -155,17 +155,32 @@ app.get('/api/sign', async (req, res) => {
 
     console.log(`Searching for sign with name=${name}, username=${username}, start_time=${start_time}, end_time=${end_time}, location=${location}`);
 
+    const uid_query = 'SELECT uid FROM users WHERE true';
+    const uid_params = [];
+
     let query = 'SELECT * FROM sign WHERE true';
     const params = [];
 
     if (name) {
-        query += ' AND name = $' + (params.length + 1);
-        params.push(name);
+        uid_query += ' AND name = $' + (uid_params.length + 1);
+        uid_params.push(name);
     }
 
     if (username) {
-        query += ' AND username = $' + (params.length + 1);
-        params.push(username);
+        uid_query += ' AND username = $' + (uid_params.length + 1);
+        uid_params.push(username);
+    }
+
+    const userResult = await pool.query(uid_query, uid_params);
+    if (userResult.rows.length === 0) {
+        res.status(404).json({ error: 'User not found' });
+        return;
+    }
+    const uid = userResult.rows[0].uid;
+
+    if (uid) {
+        query += ' AND uid = $' + (params.length + 1);
+        params.push(uid);
     }
 
     if (start_time) {
