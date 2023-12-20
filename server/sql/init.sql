@@ -54,7 +54,7 @@ VALUES
 (2, '2019-01-01 14:00:00', '2019-01-01 16:00:00', 'A101', true),
 (2, '2019-01-01 16:00:00', '2019-01-01 18:00:00', 'A101', true);
 
-INSERT INTO sign (uid, location, sign_time)
+INSERT INTO sign (uid, location, time)
 VALUES
 (1, 'A101', '2019-01-01 08:00:00'),
 (1, 'A101', '2019-01-01 10:00:00'),
