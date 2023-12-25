@@ -155,7 +155,7 @@ app.get('/api/sign', async (req, res) => {
 
     console.log(`Searching for sign with name=${name}, username=${username}, start_time=${start_time}, end_time=${end_time}, location=${location}`);
 
-    const uid_query = 'SELECT uid FROM users WHERE true';
+    let uid_query = 'SELECT uid FROM users WHERE true';
     const uid_params = [];
 
     let query = 'SELECT * FROM sign WHERE true';
@@ -234,7 +234,7 @@ app.get('/api/alter', async (req, res) => {
 
     console.log(`Searching for alter with name=${name}, username=${username}, start_time=${start_time}, end_time=${end_time}, location=${location}`);
 
-    const uid_query = 'SELECT uid FROM users WHERE true';
+    let uid_query = 'SELECT uid FROM users WHERE true';
     const uid_params = [];
 
     let query = 'SELECT * FROM alter WHERE true';
@@ -291,8 +291,8 @@ app.post('/api/alter', async (req, res) => {
 
     console.log(`Adding alter with name=${name}, username=${username}, start_time=${start_time}, end_time=${end_time}, location=${location}, record_type=${record_type}`);
 
-    uid_query = 'SELECT uid FROM users WHERE true';
-    uid_params = [];
+    let uid_query = 'SELECT uid FROM users WHERE true';
+    const uid_params = [];
 
     if (name) {
         uid_query += ' AND name = $' + (uid_params.length + 1);
@@ -326,8 +326,8 @@ app.put('/api/alter/:id', async (req, res) => {
 
     console.log(`Updating alter with id=${id}, name=${name}, username=${username}, start_time=${start_time}, end_time=${end_time}, location=${location}, valid_status=${valid_status}, record_type=${record_type}`);
 
-    uid_query = 'SELECT uid FROM users WHERE true';
-    uid_params = [];
+    let uid_query = 'SELECT uid FROM users WHERE true';
+    const uid_params = [];
 
     if (name) {
         uid_query += ' AND name = $' + (uid_params.length + 1);
